@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    PlayerStats playerStats;
     Rigidbody2D rb;
 
     [SerializeField] private float speed = 5f;
@@ -21,16 +22,44 @@ public class PlayerMovement : MonoBehaviour
 
     Vector2 storedVelocity;
 
+    private bool isClimbing = false, ladderInRange = false;
+
     private void Awake()
     {
+        playerStats = GetComponent<PlayerStats>();
         rb = GetComponent<Rigidbody2D>();
     }
 
     public void Update()
     {
-        if(!canMove) return;
+        if(Input.GetKeyDown(KeyCode.W) && ladderInRange && !isClimbing)
+        {
+            isClimbing = true;
+            rb.gravityScale = 0;
+        }
+        if(isClimbing)
+        {
+            int vertical = (int)Input.GetAxisRaw("Vertical");
+            if(vertical < 0) { vertical = -2; }
+            rb.velocity = new Vector2(rb.velocity.x, vertical * speed * playerStats.GetMultiplier(PlayerStatMultiplier.SPEED));
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                isClimbing = false;
+                rb.gravityScale = 1;
+                ExecuteJump();
+            }
+        }
+        if (!ladderInRange)
+        {
+            isClimbing = false;
+            rb.gravityScale = 1;
+        }
+
+        if (!canMove) return;
        int horizontal = (int)Input.GetAxisRaw("Horizontal");
-        transform.position += new Vector3(horizontal, 0, 0) * Time.deltaTime * speed; 
+        rb.velocity = 
+            new Vector2(horizontal * speed * playerStats.GetMultiplier(PlayerStatMultiplier.SPEED), rb.velocity.y);
+        
         CheckIsGrounded();
 
         if (Input.GetButtonDown("Jump"))
@@ -41,11 +70,10 @@ public class PlayerMovement : MonoBehaviour
 
         if (jumpPressBufferTimer > 0 && isGrounded && rb.velocity.y <= 0)
         {
-            rb.velocity = new Vector2(rb.velocity.x, 0);
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            ExecuteJump();
         }
         //jump velocity fall off
-        if (!isGrounded && rb.velocity.y < jumpVelocityFallOff)
+        if (!isGrounded && rb.velocity.y < jumpVelocityFallOff * playerStats.GetMultiplier(PlayerStatMultiplier.JUMP))
         {
             rb.velocity += Vector2.up * Physics2D.gravity.y * fallMultiplier * Time.deltaTime;
         }
@@ -55,6 +83,12 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, downwardVelocityCap);
         }
     }
+
+    private void ExecuteJump()
+    {
+        rb.velocity = new Vector2(rb.velocity.x, 0);
+        rb.AddForce(Vector2.up * jumpForce * playerStats.GetMultiplier(PlayerStatMultiplier.JUMP), ForceMode2D.Impulse);
+    }    
 
     private void CheckIsGrounded()
     {
@@ -73,16 +107,36 @@ public class PlayerMovement : MonoBehaviour
     {
         storedVelocity = rb.velocity;
         canMove = false;
-        rb.bodyType = RigidbodyType2D.Static;
-        rb.velocity = Vector2.zero; 
+        rb.velocity = Vector2.zero;
+        rb.bodyType = RigidbodyType2D.Kinematic;
     }
 
     public void ContinueMovement()
     {
-        if(storedVelocity == Vector2.zero) { return; }
         canMove = true;
         rb.bodyType = RigidbodyType2D.Dynamic;
+        if (storedVelocity == Vector2.zero) { return; }
         rb.velocity = storedVelocity;
         storedVelocity = Vector2.zero;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Ladder")) 
+        {
+            ladderInRange = true;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Ladder"))
+        {
+            ladderInRange = false;
+        }
+    }
+
+    public bool GetIsClimbing()
+    {
+        return isClimbing;
     }
 }

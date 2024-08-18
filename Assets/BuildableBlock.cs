@@ -2,24 +2,53 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteAlways]
 public class BuildableBlock : MonoBehaviour
 {
-    private bool isBuilt = false, isInRange = false, isTarget = false;
+    [SerializeField] private bool isBuilt;
+    private bool isInRange = false, isTarget = false;
     SpriteRenderer spriteRenderer;
     [SerializeField] Sprite builtSprite, unbuiltSprite;
     Collider2D col;
-
+    [SerializeField] SpriteRenderer markerSprite;
     public void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         col = GetComponent<Collider2D>();
+        if (isBuilt) { Build(); }
+        else { spriteRenderer.sprite = unbuiltSprite; }
+        LeanTween.moveLocalY(markerSprite.gameObject, markerSprite.transform.localPosition.y + 0.25f, .5f).setLoopPingPong().setEase(LeanTweenType.easeInOutSine);
     }
-    
+
+    private void Update()
+    {
+        {
+            if (isBuilt)
+            {
+                Build();
+            }
+            else
+            {
+                Unbuild();
+            }
+        }
+    }
+    public void Interact()
+    {
+        if(isBuilt) { Unbuild(); }
+        else { Build(); }
+    }
     public void Build()
     {
         isBuilt = true;
-        GetComponent<SpriteRenderer>().sprite = builtSprite;
+        spriteRenderer.sprite = builtSprite;
         col.isTrigger = false;
+    }
+    public void Unbuild()
+    {
+        isBuilt = false;
+        spriteRenderer.sprite = unbuiltSprite;
+        col.isTrigger = true;
     }
     public bool GetIsBuilt()
     {
@@ -30,30 +59,27 @@ public class BuildableBlock : MonoBehaviour
         isTarget = toggle;
         if(toggle)
         {
-            spriteRenderer.color = Color.yellow;
+            markerSprite.color = Color.green;
         }
         else
         {
-            if (isInRange)
-            {
-                spriteRenderer.color = Color.green;
-            }
-            else
-            {
-                spriteRenderer.color = Color.white;
-            }
+            markerSprite.color = Color.white;
         }
     }
     public void ToggleInRangeHilight(bool toggle)
     {
-        isInRange = toggle;
-        if(toggle)
+        markerSprite.enabled = toggle;
+    }
+    public Vector2[] GetColliderPoints()
+    {
+        //return each corner of the collider
+        Vector2[] points = new Vector2[4]
         {
-            spriteRenderer.color = Color.green;
-        }
-        else
-        {
-            spriteRenderer.color = Color.white;
-        }
+            col.bounds.min,
+            new Vector2(col.bounds.min.x, col.bounds.max.y),
+            col.bounds.max,
+            new Vector2(col.bounds.max.x, col.bounds.min.y)
+        };
+        return points;
     }
 }

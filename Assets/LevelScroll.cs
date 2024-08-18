@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraScroll : MonoBehaviour
+public class LevelScroll : MonoBehaviour
 {
     [SerializeField] private float initialScrollSpeed, scrollSpeedIncreaseAmount, scrollSpeedIncreaseFrequency;
     private float currentScrollSpeed;

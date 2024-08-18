@@ -47,7 +47,6 @@ public class Build : MonoBehaviour
             buildTimer = buildSpeed;
             onBuildEnd.Invoke();
         }
-        Debug.Log(buildTimer/buildSpeed);
         progressBar.fillAmount = buildTimer/buildSpeed;
 
         if(Input.GetKeyDown(KeyCode.Tab))

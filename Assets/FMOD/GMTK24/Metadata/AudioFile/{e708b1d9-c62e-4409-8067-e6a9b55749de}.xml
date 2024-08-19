@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{e708b1d9-c62e-4409-8067-e6a9b55749de}">
+		<property name="assetPath">
+			<value>Music/GameScreen/GameScreen_Base.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>88.888888888888886</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{a9a7b4d1-8210-487b-af68-2796ca2fb28a}</destination>
+		</relationship>
+	</object>
+</objects>

@@ -73,6 +73,7 @@ public class Build : MonoBehaviour
             Vector2 dir = new Vector2(Mathf.Sin(angle), Mathf.Cos(angle));
             Vector2 searchOrigin = new Vector2(transform.position.x,
                 transform.position.y + yBlockSearchOffset);
+            Physics2D.queriesHitTriggers = true;
             RaycastHit2D hit = Physics2D.Raycast(searchOrigin, dir, 100, LayerMask.GetMask("Buildable"));
             Debug.DrawRay(searchOrigin, dir * 100, Color.red);
             if (hit.collider != null)

@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditorInternal;
@@ -26,13 +27,12 @@ public class PlayerAnimation : MonoBehaviour
         isJumping = rb.velocity.y > 0;
         isFalling = rb.velocity.y < 0;
         isBuilding = build.GetIsBuilding();
-        playerMovement.GetIsClimbing();
+        isClimbing = playerMovement.GetIsClimbing();
 
         if(rb.velocity.x != 0)
         {
             spriteRenderer.flipX = rb.velocity.x < 0;
         }
-
         if (isBuilding)
         {
             animator.CrossFade("Build", 0f);

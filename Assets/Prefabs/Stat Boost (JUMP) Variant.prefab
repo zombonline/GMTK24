@@ -29,6 +29,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5737758721925665452, guid: e0e7dd4a45c101949816b4c08b437968, type: 3}
+      propertyPath: amount
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737758721925665452, guid: e0e7dd4a45c101949816b4c08b437968, type: 3}
       propertyPath: statToUpgrade
       value: 1
       objectReference: {fileID: 0}

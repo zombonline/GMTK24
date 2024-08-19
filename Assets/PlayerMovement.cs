@@ -95,12 +95,11 @@ public class PlayerMovement : MonoBehaviour
         isGrounded = false;
         foreach (Transform t in groundCheckStartPositions)
         {
+            Physics2D.queriesHitTriggers = false;
             RaycastHit2D rayHit = Physics2D.Raycast(t.position, Vector2.down, groundCheckDistance, groundCheckLayerMask);
             Debug.DrawRay(t.position, Vector2.down * groundCheckDistance, Color.yellow);
-            if (rayHit.collider != null)
-            {
-                isGrounded = true;
-            }
+            if (rayHit.collider == null) { continue; }
+            isGrounded = true;
         }
     }
     public void PauseMovement()

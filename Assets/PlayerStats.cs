@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
     [SerializeField] private float speedMultiplier = 2, jumpForceMultiplier = 2, buildSpeedMultiplier = 2;
     [SerializeField] private float speedMultiplierMax, jumpForceMultiplierMax, buildSpeedMultiplierMax;
-
+    [SerializeField] TextMeshProUGUI statsText;
     public void IncreaseMultiplier(PlayerStatMultiplier playerStatMultiplier, float amount)
     {
         switch (playerStatMultiplier)
@@ -32,8 +33,9 @@ public class PlayerStats : MonoBehaviour
                     buildSpeedMultiplier = buildSpeedMultiplierMax;
                 }
                 break;
-
         }
+        if(statsText == null) { return; }
+        statsText.text = "SPEED - " + speedMultiplier + "\nJUMP - " + jumpForceMultiplier + "\nBUILD - " + buildSpeedMultiplier;
     } 
     public float GetMultiplier(PlayerStatMultiplier playerStatMultiplier)
     {

@@ -23,6 +23,13 @@ public class LevelChunk : MonoBehaviour
     {
         Gizmos.color = new Color(1, 0, 0, 0.15f);
         Gizmos.DrawLineStrip(points, true);
-        
+    }
+
+    private void Update()
+    {
+        if(col.bounds.max.y < Camera.main.ScreenToWorldPoint(new Vector3(0,0,0)).y)
+        {
+            Destroy(gameObject);
+        }
     }
 }

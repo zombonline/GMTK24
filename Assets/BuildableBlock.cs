@@ -22,6 +22,7 @@ public class BuildableBlock : MonoBehaviour
 
     private void Update()
     {
+        if (LevelManager.GetIsPaused()) { return; }
         {
             if (isBuilt)
             {

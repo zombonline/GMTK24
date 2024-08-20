@@ -34,7 +34,8 @@ public class Build : MonoBehaviour
 
     public void Update()
     {
-        if(Input.GetKeyDown(KeyCode.E))
+        if(LevelManager.GetIsPaused()) { return; }
+        if (Input.GetKeyDown(KeyCode.E))
         {
             if(targetBuildableBlock == null) { return; }
             onBuildBegin.Invoke();

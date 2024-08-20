@@ -32,10 +32,11 @@ public class PlayerMovement : MonoBehaviour
 
     public void Update()
     {
-        if(Input.GetKeyDown(KeyCode.W) && ladderInRange && !isClimbing)
+        if(LevelManager.GetIsPaused()) { return; }
+        if (Input.GetKeyDown(KeyCode.W) && ladderInRange && !isClimbing)
         {
             isClimbing = true;
-            rb.gravityScale = 0;
+            Physics2D.gravity = Vector2.zero;
         }
         if(isClimbing)
         {
@@ -52,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
         if (!ladderInRange)
         {
             isClimbing = false;
-            rb.gravityScale = 1;
+            Physics2D.gravity = new Vector2(0, -9.81f);
         }
 
         if (!canMove) return;
@@ -104,6 +105,7 @@ public class PlayerMovement : MonoBehaviour
     }
     public void PauseMovement()
     {
+        Debug.Log("Pausing Movement");
         storedVelocity = rb.velocity;
         canMove = false;
         rb.velocity = Vector2.zero;

@@ -12,6 +12,12 @@ public class FMODMethods : MonoBehaviour
     {
         FMODController.PlaySFX(name);
     }
-
-
+    public void UpdateMusicVolume(float val)
+    {
+        FMODController.SetMusicVolume(val);
+    }
+    public void UpdateSFXVolume(float val)
+    {
+        FMODController.SetSFXVolume(val);
+    }
 }

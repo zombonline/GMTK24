@@ -20,6 +20,7 @@ public class JumpPad : MonoBehaviour
         if (LevelManager.GetIsPaused()) { return; }
         if (collision.CompareTag("Player") && cooldownTimer <= 0)
         {
+            FMODController.PlaySFX(bounceSFX);
             collision.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             collision.GetComponent<Rigidbody2D>().AddForce(Vector2.up * power, ForceMode2D.Impulse);
             spriteRenderer.sprite = unprimedSprite;

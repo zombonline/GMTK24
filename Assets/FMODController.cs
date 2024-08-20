@@ -7,14 +7,32 @@ public class FMODController : MonoBehaviour
     static FMOD.Studio.EventInstance pauseSnapshot;
 
     static List<FMOD.Studio.EventInstance> loopingInstances = new List<FMOD.Studio.EventInstance>();
+    static FMOD.Studio.EventInstance musicInstance;
 
     StudioEventEmitter instance;
 
-    private void Awake()
+    private static FMOD.Studio.VCA sfx, music;
+
+    private const string MUSIC_VOL_KEY = "music vol", SFX_VOL_KEY = "sfx vol";
+
+    private IEnumerator Start()
     {
+        FMODUnity.RuntimeManager.LoadBank("Master");
+        while (!RuntimeManager.HasBankLoaded("Master"))
+        {
+            yield return null; // Wait until the bank is loaded
+        }
         instance = GetComponent<StudioEventEmitter>();
         pauseSnapshot = RuntimeManager.CreateInstance("snapshot:/Pause");
+        sfx = RuntimeManager.GetVCA("vca:/SFX VCA");
+        music = RuntimeManager.GetVCA("vca:/Music VCA");
+        sfx.setVolume(PlayerPrefs.GetFloat(SFX_VOL_KEY, 1f));
+        music.setVolume(PlayerPrefs.GetFloat(MUSIC_VOL_KEY,1f));
 
+        if(!instance.IsPlaying())
+        {
+            instance.Play();
+        }
     }
     public void ChangeMusicState(int value)
     {
@@ -35,7 +53,6 @@ public class FMODController : MonoBehaviour
     public static void PlaySFX(string val, string param = null, int paramVal = 0)
     {
         var newAudioEvent = RuntimeManager.CreateInstance(val);
-
         newAudioEvent.start();
         if (param == null) { return; }
         newAudioEvent.setParameterByName(param, paramVal);
@@ -68,6 +85,17 @@ public class FMODController : MonoBehaviour
                 break;
             }
         }
+    }
+
+    public static void SetMusicVolume(float val)
+    {
+        music.setVolume(val);
+        PlayerPrefs.SetFloat(MUSIC_VOL_KEY, val);
+    }
+    public static void SetSFXVolume(float val)
+    {
+        sfx.setVolume(val);
+        PlayerPrefs.SetFloat(SFX_VOL_KEY, val);
     }
 
 }

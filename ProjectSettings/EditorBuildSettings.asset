@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Foolhardy SplashScreen Package/Splash.unity
+    guid: cda1f10bea3777b4f91f9d9aef2af11c
+  - enabled: 1
     path: Assets/Scenes/Menu.unity
     guid: c0d916151185afa44872229137a8a2ed
   - enabled: 1

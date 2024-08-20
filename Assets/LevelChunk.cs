@@ -27,7 +27,7 @@ public class LevelChunk : MonoBehaviour
 
     private void Update()
     {
-        if(col.bounds.max.y < Camera.main.ScreenToWorldPoint(new Vector3(0,0,0)).y)
+        if(col.bounds.max.y < Camera.main.ScreenToWorldPoint(new Vector3(0,0,0)).y - 10)
         {
             Destroy(gameObject);
         }

@@ -60,6 +60,7 @@ public class Build : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.E))
         {
+
             isBuilding = false;
             buildTimer = buildSpeed;
             onBuildEnd.Invoke();

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -22,17 +23,17 @@ public class LevelManager : MonoBehaviour
 
     private bool winSpawned = false;
 
+    [SerializeField] TextMeshProUGUI distanceTravelledText;
+
     private void Start()
     {
         cameraTop = Camera.main.ScreenToWorldPoint(new Vector2(0, Camera.main.pixelHeight)).y;
         lastSpawnedChunk = SpawnNewLevelChunk(startLevelChunk, 0);
+        ContinueGame();
     }
 
     private void Update()
     {
-        totalMetersTravelled += levelScroll.GetCurrentScrollSpeed() * Time.deltaTime;
-        metressSinceStatBoost += levelScroll.GetCurrentScrollSpeed() * Time.deltaTime;
-        Debug.Log(totalMetersTravelled);
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
         {
             if (isGameOver) { return; }
@@ -48,6 +49,7 @@ public class LevelManager : MonoBehaviour
                 ContinueGame(); 
             }
         }
+
         if(winSpawned)
         {
             if(lastSpawnedChunk.GetComponent<Collider2D>().bounds.max.y < cameraTop)
@@ -56,6 +58,9 @@ public class LevelManager : MonoBehaviour
             }
         }
         if (isPaused || winSpawned) { return; }
+        totalMetersTravelled += levelScroll.GetCurrentScrollSpeed() * Time.deltaTime;
+        metressSinceStatBoost += levelScroll.GetCurrentScrollSpeed() * Time.deltaTime;
+        distanceTravelledText.text = "Distance Scaled: " + totalMetersTravelled.ToString("0.00") + "\nHighest: " + PlayerPrefs.GetFloat("HIGH SCORE", 0).ToString("0.00");
         if (lastSpawnedChunk.GetComponent<Collider2D>().bounds.max.y < cameraTop)
         {
             if(totalMetersTravelled >= totalMetersToWin)
@@ -73,7 +78,6 @@ public class LevelManager : MonoBehaviour
             {
                 lastSpawnedChunk = SpawnNewLevelChunk(levelChunks[Random.Range(0, levelChunks.Length)], lastSpawnedChunk.GetComponent<Collider2D>().bounds.max.y);
             }
-            totalMetersTravelled++;
         }
 
     }
@@ -95,6 +99,10 @@ public class LevelManager : MonoBehaviour
     }
     public void GameOver()
     {
+        if(PlayerPrefs.GetFloat("HIGH SCORE", 0) < totalMetersTravelled)
+        {
+            PlayerPrefs.SetFloat("HIGH SCORE", totalMetersTravelled);
+        }
         isGameOver = true;
         isPaused = true;
         onGameOver.Invoke();
@@ -111,6 +119,10 @@ public class LevelManager : MonoBehaviour
     }
     public void GameComplete()
     {
+        if (PlayerPrefs.GetFloat("HIGH SCORE", 0) < totalMetersTravelled)
+        {
+            PlayerPrefs.SetFloat("HIGH SCORE", totalMetersTravelled);
+        }
         isGameOver = true;
         isPaused = true;
         onGameComplete.Invoke();

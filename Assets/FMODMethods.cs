@@ -8,7 +8,10 @@ public class FMODMethods : MonoBehaviour
     {
         FindObjectOfType<FMODController>().ChangeMusicState(value);
     }
-
+    public void PlaySFX(string name)
+    {
+        FMODController.PlaySFX(name);
+    }
 
 
 }

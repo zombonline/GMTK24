@@ -73,7 +73,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -648464527
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 72829deea9e81744bb866d0b92714ab9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -100,6 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statToUpgrade: 0
   amount: 0.1
+  pickupSFX: event:/SFX/Objects/ItemGrab/ItemGrab_Speed
 --- !u!58 &5246186362930966105
 CircleCollider2D:
   m_ObjectHideFlags: 0

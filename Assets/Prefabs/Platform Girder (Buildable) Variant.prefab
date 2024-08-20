@@ -228,6 +228,8 @@ MonoBehaviour:
   builtSprite: {fileID: 21300000, guid: a443dfadf8b93844a8ae0a0e6d75eea5, type: 3}
   unbuiltSprite: {fileID: 21300000, guid: b80b3e5e21c9b814e8d6d1a97e68bb9d, type: 3}
   markerSprite: {fileID: 6348969653163984776}
+  unbuildSFX: event:/SFX/Objects/Destroy/Destroy_Girder
+  buildSFX: event:/SFX/Objects/Build/Build_Girder
 --- !u!4 &9030806470740597631 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6758173770302901126, guid: cade20dc4c3316e48b4ccebf93d9a22f, type: 3}

@@ -11,18 +11,18 @@ public class BuildableBlock : MonoBehaviour
     [SerializeField] Sprite builtSprite, unbuiltSprite;
     Collider2D col;
     [SerializeField] SpriteRenderer markerSprite;
+    [SerializeField] string unbuildSFX, buildSFX;
     public void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         col = GetComponent<Collider2D>();
-        if (isBuilt) { Build(); }
-        else { spriteRenderer.sprite = unbuiltSprite; }
         LeanTween.moveLocalY(markerSprite.gameObject, markerSprite.transform.localPosition.y + 0.25f, .5f).setLoopPingPong().setEase(LeanTweenType.easeInOutSine);
     }
 
     private void Update()
     {
         if (LevelManager.GetIsPaused()) { return; }
+        if (!Application.isPlaying)
         {
             if (isBuilt)
             {
@@ -42,12 +42,14 @@ public class BuildableBlock : MonoBehaviour
     public void Build()
     {
         isBuilt = true;
+        FMODController.PlaySFX(buildSFX);
         spriteRenderer.sprite = builtSprite;
         col.isTrigger = false;
     }
     public void Unbuild()
     {
         isBuilt = false;
+        FMODController.PlaySFX(unbuildSFX);
         spriteRenderer.sprite = unbuiltSprite;
         col.isTrigger = true;
     }

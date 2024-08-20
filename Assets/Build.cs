@@ -21,7 +21,7 @@ public class Build : MonoBehaviour
     private bool isBuilding = false;
 
     [SerializeField] private float yBlockSearchOffset = 0;
-
+    [SerializeField] string buildSFX;
     private void Awake()
     {
         playerStats = GetComponentInParent<PlayerStats>();
@@ -41,6 +41,7 @@ public class Build : MonoBehaviour
             onBuildBegin.Invoke();
             buildTimer = buildSpeed / playerStats.GetMultiplier(PlayerStatMultiplier.BUILD);
             isBuilding = true;
+            FMODController.PlaySFX(buildSFX);
         }
         
         if (Input.GetKey(KeyCode.E))

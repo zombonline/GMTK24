@@ -9,6 +9,8 @@ public class JumpPad : MonoBehaviour
     [SerializeField] Sprite primedSprite, unprimedSprite;
     [SerializeField] float cooldown = .5f;
     private float cooldownTimer;
+
+    [SerializeField] string bounceSFX;
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();

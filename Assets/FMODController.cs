@@ -6,7 +6,7 @@ public class FMODController : MonoBehaviour
 {
     static FMOD.Studio.EventInstance pauseSnapshot;
 
-    List<FMOD.Studio.EventInstance> loopingInstances = new List<FMOD.Studio.EventInstance>();
+    static List<FMOD.Studio.EventInstance> loopingInstances = new List<FMOD.Studio.EventInstance>();
 
     StudioEventEmitter instance;
 
@@ -35,6 +35,7 @@ public class FMODController : MonoBehaviour
     public static void PlaySFX(string val, string param = null, int paramVal = 0)
     {
         var newAudioEvent = RuntimeManager.CreateInstance(val);
+
         newAudioEvent.start();
         if (param == null) { return; }
         newAudioEvent.setParameterByName(param, paramVal);
@@ -45,15 +46,17 @@ public class FMODController : MonoBehaviour
         newAudioEvent.start();
     }
 
-    public void StartLoopedSFX(string val)
+    public static void StartLoopedSFX(string val)
     {
         var audioEvent = RuntimeManager.CreateInstance(val);
         audioEvent.start();
         loopingInstances.Add(audioEvent);
     }
 
-    public void StopLoopedSFX(string val)
+    public static void StopLoopedSFX(string val)
     {
+        Debug.Log("Stopping looped SFX");
+        if(loopingInstances.Count == 0) { return; }
         foreach (var audioEvent in loopingInstances)
         {
             audioEvent.getDescription(out FMOD.Studio.EventDescription eventDesc);
@@ -62,6 +65,7 @@ public class FMODController : MonoBehaviour
             {
                 audioEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
                 loopingInstances.Remove(audioEvent);
+                break;
             }
         }
     }

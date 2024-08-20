@@ -217,3 +217,5 @@ MonoBehaviour:
   builtSprite: {fileID: 21300000, guid: 1d8160bc2f73c574d9e278289a7626e8, type: 3}
   unbuiltSprite: {fileID: 21300000, guid: b80b3e5e21c9b814e8d6d1a97e68bb9d, type: 3}
   markerSprite: {fileID: 5326553893089620010}
+  unbuildSFX: event:/SFX/Objects/Destroy/Destroy_Brick
+  buildSFX: event:/SFX/Objects/Build/Build_Brick

@@ -24,6 +24,8 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isClimbing = false, ladderInRange = false;
 
+    [SerializeField] string climbingSFX;
+
     private void Awake()
     {
         playerStats = GetComponent<PlayerStats>();
@@ -36,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.W) && ladderInRange && !isClimbing)
         {
             isClimbing = true;
+            FMODController.StartLoopedSFX(climbingSFX);
             Physics2D.gravity = Vector2.zero;
         }
         if(isClimbing)
@@ -46,14 +49,17 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 isClimbing = false;
-                rb.gravityScale = 1;
+                Physics2D.gravity = new Vector2(0, -9.81f);
+                FMODController.StopLoopedSFX(climbingSFX);
                 ExecuteJump();
             }
         }
-        if (!ladderInRange)
+        if (!ladderInRange && isClimbing)
         {
             isClimbing = false;
+            rb.AddForce(new Vector2(0, 2f),ForceMode2D.Impulse);
             Physics2D.gravity = new Vector2(0, -9.81f);
+            FMODController.StopLoopedSFX(climbingSFX);
         }
 
         if (!canMove) return;

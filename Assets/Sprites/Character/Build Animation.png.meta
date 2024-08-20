@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c288f510a145bce459e68c405ea2f49d
+guid: 5e13cd9c39417954b90d85bbb7ac4df6
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 913
+  spritePixelsToUnits: 509
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -149,13 +149,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Walk Animation Spritesheet_0
+      name: Build Animation_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 913
-        width: 913
-        height: 913
+        y: 953
+        width: 953
+        height: 953
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -163,20 +163,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 260f08b1b24bdfd42a322664d46e1e35
-      internalID: -360618370
+      spriteID: ab622f5ff59ca21479c63774c112de15
+      internalID: 1458408666
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Walk Animation Spritesheet_1
+      name: Build Animation_1
       rect:
         serializedVersion: 2
-        x: 913
-        y: 913
-        width: 913
-        height: 913
+        x: 953
+        y: 953
+        width: 953
+        height: 953
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -184,62 +184,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7813ef683bd7f99459dcd1a10db80042
-      internalID: 849947881
+      spriteID: d5d9c53bd2607544da36d2085f60e8aa
+      internalID: -1765042720
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Walk Animation Spritesheet_2
-      rect:
-        serializedVersion: 2
-        x: 1826
-        y: 913
-        width: 913
-        height: 913
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2d7d687298fa86a4f91ca2b561bca7a3
-      internalID: 1602289134
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Walk Animation Spritesheet_3
-      rect:
-        serializedVersion: 2
-        x: 2739
-        y: 913
-        width: 913
-        height: 913
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 87af1e281f1d3d941b293231be327536
-      internalID: -1453976961
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Walk Animation Spritesheet_4
+      name: Build Animation_2
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 913
-        height: 913
+        width: 953
+        height: 953
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -247,20 +205,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 184b58680ca0c884eb2b3f646e03d414
-      internalID: 1255258893
+      spriteID: 257e1a9ea077737459dd3dd1b8a93d66
+      internalID: 928151482
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Walk Animation Spritesheet_5
+      name: Build Animation_3
       rect:
         serializedVersion: 2
-        x: 913
+        x: 953
         y: 0
-        width: 913
-        height: 913
+        width: 953
+        height: 953
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -268,50 +226,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6c7ba5f8bfc04a4409602228aba9a639
-      internalID: 1514956759
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Walk Animation Spritesheet_6
-      rect:
-        serializedVersion: 2
-        x: 1826
-        y: 0
-        width: 913
-        height: 913
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b5e9d22fe312a684c90898cad0a7fcb9
-      internalID: -1676914320
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Walk Animation Spritesheet_7
-      rect:
-        serializedVersion: 2
-        x: 2739
-        y: 0
-        width: 913
-        height: 913
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 21c7689e2b823524c9e4799051874a17
-      internalID: -1382606207
+      spriteID: 0e0b05210f8a88449bea3587e9d0a0b2
+      internalID: -1392239413
       vertices: []
       indices: 
       edges: []
@@ -319,7 +235,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 13e21a087ae26c24a8720dab08e3059d
+    spriteID: d5d879e5c80c6f04cae00d202115fb10
     internalID: 0
     vertices: []
     indices: 
@@ -327,14 +243,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Walk Animation Spritesheet_0: -360618370
-      Walk Animation Spritesheet_1: 849947881
-      Walk Animation Spritesheet_2: 1602289134
-      Walk Animation Spritesheet_3: -1453976961
-      Walk Animation Spritesheet_4: 1255258893
-      Walk Animation Spritesheet_5: 1514956759
-      Walk Animation Spritesheet_6: -1676914320
-      Walk Animation Spritesheet_7: -1382606207
+      Build Animation_0: 1458408666
+      Build Animation_1: -1765042720
+      Build Animation_2: 928151482
+      Build Animation_3: -1392239413
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

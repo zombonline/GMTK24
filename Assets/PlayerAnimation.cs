@@ -1,7 +1,6 @@
 
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditorInternal;
 using UnityEngine;
 public class PlayerAnimation : MonoBehaviour
 {
@@ -23,6 +22,8 @@ public class PlayerAnimation : MonoBehaviour
 
     void Update()
     {
+        if (LevelManager.GetIsPaused()) { animator.speed = 0; return; }
+        animator.speed = 1;
         isMoving = rb.velocity.x != 0;    
         isJumping = rb.velocity.y > 0;
         isFalling = rb.velocity.y < 0;
@@ -39,6 +40,10 @@ public class PlayerAnimation : MonoBehaviour
         }
         else if (isClimbing)
         {
+            if(rb.velocity.y == 0)
+            {
+                animator.speed = 0;
+            }
             animator.CrossFade("Climb", 0f);
         }
         else if(isJumping)

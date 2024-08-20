@@ -15,7 +15,8 @@ public class JumpPad : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player") && cooldownTimer <= 0)
+        if (LevelManager.GetIsPaused()) { return; }
+        if (collision.CompareTag("Player") && cooldownTimer <= 0)
         {
             collision.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             collision.GetComponent<Rigidbody2D>().AddForce(Vector2.up * power, ForceMode2D.Impulse);

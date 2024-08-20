@@ -7,7 +7,7 @@ public class PlayerStats : MonoBehaviour
 {
     [SerializeField] private float speedMultiplier = 2, jumpForceMultiplier = 2, buildSpeedMultiplier = 2;
     [SerializeField] private float speedMultiplierMax, jumpForceMultiplierMax, buildSpeedMultiplierMax;
-    [SerializeField] TextMeshProUGUI statsText;
+    [SerializeField] TextMeshProUGUI statsTextJump, statsTextBuild, statsTextSpeed;
     public void IncreaseMultiplier(PlayerStatMultiplier playerStatMultiplier, float amount)
     {
         switch (playerStatMultiplier)
@@ -34,8 +34,11 @@ public class PlayerStats : MonoBehaviour
                 }
                 break;
         }
-        if(statsText == null) { return; }
-        statsText.text = "SPEED - " + speedMultiplier + "\nJUMP - " + jumpForceMultiplier + "\nBUILD - " + buildSpeedMultiplier;
+        if(statsTextJump == null) { return; }
+        //statsText.text = "SPEED - " + speedMultiplier + "\nJUMP - " + jumpForceMultiplier + "\nBUILD - " + buildSpeedMultiplier;
+        statsTextBuild.text = buildSpeedMultiplier.ToString("0.0").Split('.')[1];
+        statsTextJump.text = jumpForceMultiplier.ToString("0.0").Split('.')[1];
+        statsTextSpeed.text = speedMultiplier.ToString("0.0").Split('.')[1];
     } 
     public float GetMultiplier(PlayerStatMultiplier playerStatMultiplier)
     {

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{89737ce8-2041-4ab5-9d8a-6c690a0625ca}">
+		<property name="assetPath">
+			<value>SFX/Objects/ItemGrab/ItemGrab_Build.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>4.0959863945578228</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{a9a7b4d1-8210-487b-af68-2796ca2fb28a}</destination>
+		</relationship>
+	</object>
+</objects>

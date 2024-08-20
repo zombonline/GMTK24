@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="MixerGroup" id="{7063b00f-b240-46b8-bbe8-3065b7b83054}">
+		<property name="volume">
+			<value>-3</value>
+		</property>
+		<property name="name">
+			<value>Ambience Bus</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{1fb9ce3a-95cd-4321-9cda-d0b7cf587148}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{51ebbf2c-22ee-4fea-b22d-9a70cfa53715}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{7cbafae1-38ee-4286-87a4-8fb11a87992d}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{1fb9ce3a-95cd-4321-9cda-d0b7cf587148}">
+		<relationship name="effects">
+			<destination>{80ea2ab4-53d2-44bc-9355-b67b3ae990e1}</destination>
+			<destination>{09fc50b2-b0ef-4968-bebd-b314d7ef7032}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{51ebbf2c-22ee-4fea-b22d-9a70cfa53715}" />
+	<object class="MixerBusFader" id="{80ea2ab4-53d2-44bc-9355-b67b3ae990e1}" />
+	<object class="ThreeEQEffect" id="{09fc50b2-b0ef-4968-bebd-b314d7ef7032}">
+		<property name="highCrossover">
+			<value>900</value>
+		</property>
+	</object>
+</objects>

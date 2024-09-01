@@ -8,4 +8,10 @@ public enum PlayerStatMultiplier
     JUMP,
     BUILD
 }
-
+public enum GameState
+{
+    PLAYING,
+    PAUSED,
+    GAME_OVER,
+    GAME_COMPLETE
+}

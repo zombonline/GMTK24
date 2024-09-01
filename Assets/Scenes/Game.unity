@@ -461,7 +461,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 732140600}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &250277842
 MonoBehaviour:
@@ -865,57 +865,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &732140599
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 732140600}
-  - component: {fileID: 732140601}
-  m_Layer: 0
-  m_Name: Level Scroll
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &732140600
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 732140599}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 250277841}
-  - {fileID: 537851217543873455}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &732140601
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 732140599}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b6bb4c58494da047a386efd39c438cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  initialScrollSpeed: 0.5
-  scrollSpeedIncreaseAmount: 0.1
-  scrollSpeedIncreaseFrequency: 35
-  playerAheadScrollSpeed: 5
-  dangerImage: {fileID: 76893514}
 --- !u!1 &750887508
 GameObject:
   m_ObjectHideFlags: 0
@@ -1114,7 +1063,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4034a4c4fb04a564e8124a39c288c591, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelScroll: {fileID: 732140601}
   levelChunks:
   - {fileID: 6919824408183290539, guid: 45f3f259cfa79b041860668480bab329, type: 3}
   - {fileID: 928115465867262157, guid: 5d9c2bab1c52fdc418bf1c1f7dadfb67, type: 3}
@@ -1283,6 +1231,13 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
   distanceTravelledText: {fileID: 80854836}
+  deleteChunkHeight: -100
+  aheadScrollSpeed: -5
+  behindScrollSpeed: -1
+  initialScrollSpeed: 1
+  objectsToMoveWithLevel:
+  - {fileID: 537851217543873455}
+  - {fileID: 250277841}
 --- !u!4 &847540112
 Transform:
   m_ObjectHideFlags: 0
@@ -2679,7 +2634,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 732140600}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 379073854170881117, guid: 8093dc56670215b4fa77f20aa81e8750, type: 3}
       propertyPath: m_Camera
@@ -2834,7 +2789,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 885566848}
   - {fileID: 1295641721}
-  - {fileID: 732140600}
   - {fileID: 847540112}
   - {fileID: 726902979}
   - {fileID: 1730438778}
@@ -2845,3 +2799,5 @@ SceneRoots:
   - {fileID: 660408203}
   - {fileID: 7846475831913049869}
   - {fileID: 690164305}
+  - {fileID: 250277841}
+  - {fileID: 537851217543873454}

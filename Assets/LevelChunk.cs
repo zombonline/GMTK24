@@ -32,4 +32,12 @@ public class LevelChunk : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    public float GetPosOfBottom()
+    {
+        return col.bounds.min.y;
+    }
+    public float GetPosoOfTop()
+    {
+        return col.bounds.max.y;
+    }
 }

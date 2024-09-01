@@ -15,20 +15,8 @@ public class StatsBox : MonoBehaviour
 
     public void Update()
     {
-        bool playerLow = (player.position.y < -Camera.main.ScreenToWorldPoint(new Vector2(0, Camera.main.pixelHeight)).y / 2f);
-        if (playerLow)
-        {
 
-            foreach (Image img in GetComponentsInChildren<Image>())
-            {
-                img.color = new Color(img.color.r, img.color.g, img.color.b, 0.2f);
-            }
-            foreach (TextMeshProUGUI textElement in GetComponentsInChildren<TextMeshProUGUI>())
-            {
-                textElement.color = new Color(textElement.color.r, textElement.color.g, textElement.color.b, 0.2f);
-            }
-        }
-        else
+        if (PositionOnScreen.IsAbove(player.position, Camera.main.pixelHeight / 4f))
         {
             foreach (Image img in GetComponentsInChildren<Image>())
             {
@@ -39,6 +27,16 @@ public class StatsBox : MonoBehaviour
                 textElement.color = new Color(textElement.color.r, textElement.color.g, textElement.color.b, 1f);
             }
         }
-
+        else
+        {
+            foreach (Image img in GetComponentsInChildren<Image>())
+            {
+                img.color = new Color(img.color.r, img.color.g, img.color.b, 0.2f);
+            }
+            foreach (TextMeshProUGUI textElement in GetComponentsInChildren<TextMeshProUGUI>())
+            {
+                textElement.color = new Color(textElement.color.r, textElement.color.g, textElement.color.b, 0.2f);
+            }
+        }
     }
 }

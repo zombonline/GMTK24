@@ -6,7 +6,6 @@ using UnityEngine.Events;
 
 public class LevelManager : MonoBehaviour
 {
-    [SerializeField] LevelScroll levelScroll;
     [SerializeField] LevelChunk[] levelChunks;
     [SerializeField] LevelChunk statBoostLevelChunk;
     [SerializeField] LevelChunk startLevelChunk;
@@ -16,7 +15,7 @@ public class LevelManager : MonoBehaviour
     private float totalMetersTravelled = 0;
     private static bool isPaused = false, isGameOver;
 
-    GameObject lastSpawnedChunk;
+    LevelChunk lastSpawnedChunk;
     private float cameraTop;
 
     [SerializeField] UnityEvent onPause, onGameOver, onContinue, onGameComplete;
@@ -25,11 +24,63 @@ public class LevelManager : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI distanceTravelledText;
 
+    Transform levelScrollTransform;
+
+    [Header("Screen points")]
+    [SerializeField] float deleteChunkHeight;
+
+
+    [Header("Scroll Speed")]
+    [SerializeField] private float aheadScrollSpeed, behindScrollSpeed, initialScrollSpeed;
+    private float currentScrollSpeed, standardScrollSpeed;
+    private float scrollSpeedIncreaseTimer;
+    LTDescr scrollSpeedTween;
+
+    Transform player;
+    bool playerAhead, playerAheadLastFrame, playerBehind, playerBehindLastFrame;
+
+    [SerializeField] Transform[] objectsToMoveWithLevel;
+
+    bool isScrolling = true;
+
+    private void OnEnable()
+    {
+        GameManager.onGameStateUpdated += HandleGameStateChange;
+    }
+    private void onDisable()
+    {
+        GameManager.onGameStateUpdated -= HandleGameStateChange;
+    }
+    private void HandleGameStateChange(GameState newState)
+    {
+        switch(newState)
+        {
+            case GameState.PLAYING
+        }
+    }
+
+    private void Awake()
+    {
+        levelScrollTransform = new GameObject().transform;
+        levelScrollTransform.parent = this.transform;
+        foreach(Transform item in objectsToMoveWithLevel)
+        {
+            item.parent = levelScrollTransform;
+        }
+    }
+
     private void Start()
     {
-        cameraTop = Camera.main.ScreenToWorldPoint(new Vector2(0, Camera.main.pixelHeight)).y;
+        standardScrollSpeed = initialScrollSpeed;
+        currentScrollSpeed = standardScrollSpeed;
+        cameraTop = PositionOnScreen.GetCameraHeightInWorld();
         lastSpawnedChunk = SpawnNewLevelChunk(startLevelChunk, 0);
         ContinueGame();
+
+        player = GameObject.FindWithTag("Player").transform;
+
+        GameManager.SetGameState(GameState.PAUSED);
+        GameManager.SetGameState(GameState.PLAYING);
     }
 
     private void Update()
@@ -49,21 +100,26 @@ public class LevelManager : MonoBehaviour
                 ContinueGame(); 
             }
         }
-
+        ScrollLevel();
+        HandleNextChunk();
         if(winSpawned)
         {
             if(lastSpawnedChunk.GetComponent<Collider2D>().bounds.max.y < cameraTop)
             {
-                levelScroll.StopScrolling();
+                isScrolling = false;
             }
         }
         if (isPaused || winSpawned) { return; }
-        totalMetersTravelled += levelScroll.GetCurrentScrollSpeed() * Time.deltaTime;
-        metressSinceStatBoost += levelScroll.GetCurrentScrollSpeed() * Time.deltaTime;
+        totalMetersTravelled += currentScrollSpeed * Time.deltaTime;
+        metressSinceStatBoost += currentScrollSpeed * Time.deltaTime;
         distanceTravelledText.text = "Distance Scaled: " + totalMetersTravelled.ToString("0.00") + "\nHighest: " + PlayerPrefs.GetFloat("HIGH SCORE", 0).ToString("0.00");
-        if (lastSpawnedChunk.GetComponent<Collider2D>().bounds.max.y < cameraTop)
+    }
+
+    private void HandleNextChunk()
+    {
+        if (lastSpawnedChunk.GetPosoOfTop() < cameraTop)
         {
-            if(totalMetersTravelled >= totalMetersToWin)
+            if (totalMetersTravelled >= totalMetersToWin)
             {
                 winSpawned = true;
                 lastSpawnedChunk = SpawnNewLevelChunk(winLevelChunk, lastSpawnedChunk.GetComponent<Collider2D>().bounds.max.y);
@@ -79,13 +135,59 @@ public class LevelManager : MonoBehaviour
                 lastSpawnedChunk = SpawnNewLevelChunk(levelChunks[Random.Range(0, levelChunks.Length)], lastSpawnedChunk.GetComponent<Collider2D>().bounds.max.y);
             }
         }
-
     }
-    private GameObject SpawnNewLevelChunk(LevelChunk levelChunk, float yPos)
+
+    private void ScrollLevel()
     {
-        GameObject newLevelChunk = 
-            Instantiate(levelChunk.gameObject, new Vector2(0, yPos) , Quaternion.identity);
-        newLevelChunk.transform.SetParent(levelScroll.transform);
+        levelScrollTransform.position = Vector3.MoveTowards(levelScrollTransform.position,
+        levelScrollTransform.position + Vector3.down, currentScrollSpeed * Time.deltaTime);
+        foreach (LevelChunk chunk in levelScrollTransform.GetComponentsInChildren<LevelChunk>())
+        {
+
+            if(chunk.GetPosoOfTop() <= Camera.main.WorldToScreenPoint(new Vector2(0,deleteChunkHeight)).y)
+            {
+                Debug.Log("Destroying " + chunk.gameObject.name);
+                Destroy(chunk.gameObject,1f);
+            }
+        }
+    }
+    private void HandleScrollSpeed()
+    {
+        //player is high up on the screen
+        playerAhead = PositionOnScreen.IsAbove(player.position, Camera.main.pixelHeight / 4f * 3f);
+        playerBehind = PositionOnScreen.IsAbove(player.position, Camera.main.pixelHeight / 4f);
+        
+        if(playerAhead && !playerAheadLastFrame)
+        {
+            if (scrollSpeedTween != null) { LeanTween.cancel(scrollSpeedTween.id); }
+            scrollSpeedTween = LeanTween.value(currentScrollSpeed, aheadScrollSpeed, 3f).setOnUpdate(SetScrollSpeed);
+        }
+        else if (!playerAhead && playerAheadLastFrame)
+        {
+            if (scrollSpeedTween != null) { LeanTween.cancel(scrollSpeedTween.id); }
+            scrollSpeedTween = LeanTween.value(currentScrollSpeed, standardScrollSpeed, .25f).setOnUpdate(SetScrollSpeed);
+        }
+        
+        //player is low down the screen
+        if (playerBehind)
+        {
+            if(!playerBehindLastFrame)
+            {
+                if (scrollSpeedTween != null) { LeanTween.cancel(scrollSpeedTween.id); }
+                scrollSpeedTween = LeanTween.value(currentScrollSpeed, behindScrollSpeed, 3f).setOnUpdate(SetScrollSpeed);
+            }
+            float intensity = PositionOnScreen.GetScaleBetweenTwoPoints(player.position, Camera.main.pixelHeight / 4, 0f);
+            FindObjectOfType<FMODController>().ChangeDangerParameter(intensity);
+            //dangerImage.color = new Color(dangerImage.color.r, dangerImage.color.g, dangerImage.color.g, playerLowScale);
+        }
+        playerAheadLastFrame = playerAhead;
+        playerBehindLastFrame = playerBehind;
+    }
+    private LevelChunk SpawnNewLevelChunk(LevelChunk levelChunkPrefab, float yPos)
+    {
+        LevelChunk newLevelChunk = 
+            Instantiate(levelChunkPrefab.gameObject, new Vector2(0, yPos) , Quaternion.identity).GetComponent<LevelChunk>();
+        newLevelChunk.transform.SetParent(levelScrollTransform.transform);
         return newLevelChunk;
     }
 
@@ -127,4 +229,9 @@ public class LevelManager : MonoBehaviour
         isPaused = true;
         onGameComplete.Invoke();
     }
+    public void SetScrollSpeed(float val)
+    {
+        currentScrollSpeed = val;
+    }
+
 }

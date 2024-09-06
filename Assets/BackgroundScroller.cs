@@ -3,26 +3,40 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BackgroundScroller : MonoBehaviour
-
 {
-    [SerializeField] float backgroundScrollSpeed;
-    Material myMaterial;
+    [SerializeField] float scrollSpeed;
+    Material mat;
     Vector2 offSet;
-
-
-    // Start is called before the first frame update
+    bool isScrolling = true;
+    private void OnEnable()
+    {
+        GameManager.onGameStateUpdated += HandleGameState;
+    }
+    private void OnDisable()
+    {
+        GameManager.onGameStateUpdated -= HandleGameState;
+    }
     void Start()
     {
-        myMaterial = GetComponent<Renderer>().material;
-        offSet = new Vector2(0f, backgroundScrollSpeed);
+        mat = GetComponent<Renderer>().material;
+        offSet = new Vector2(0f, scrollSpeed);
     }
-
-    // Update is called once per frame
     void Update()
     {
-        if(LevelManager.GetIsPaused()) { return; }
-        //move offset by speed every second
-        offSet = new Vector2(0f, backgroundScrollSpeed);
-        myMaterial.mainTextureOffset += offSet * Time.deltaTime;
+        if (!isScrolling) { return; }
+        offSet = new Vector2(0f, scrollSpeed);
+        mat.mainTextureOffset += offSet * Time.deltaTime;
+    }
+    private void HandleGameState(GameState state)
+    {
+        switch (state)
+        {
+            case GameState.PLAYING:
+                isScrolling = true;
+                break;
+            default:
+                isScrolling = false;
+                break;
+        }
     }
 }

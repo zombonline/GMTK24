@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311918, g: 0.3807398, b: 0.35872716, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -475,6 +475,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3178b0793ac57141b0bd0fba5cfa495, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minStatRequirements:
+    speed: 0
+    jump: 0
+    build: 0
+  requireAllStats: 0
 --- !u!1 &375995051
 GameObject:
   m_ObjectHideFlags: 0
@@ -1069,53 +1074,16 @@ MonoBehaviour:
   - {fileID: 4439553202332794192, guid: 82f66a1462b7fdc49893ab6d85089ed8, type: 3}
   - {fileID: 8779919076153817315, guid: 06f07fd8dc0461d4d98069bca55272aa, type: 3}
   - {fileID: 8172376258368460379, guid: cb0b32659af98ee49a9b6f2b340ccc0b, type: 3}
+  - {fileID: 1033994712929563295, guid: 2a00177582e41d6428c375926ac876f3, type: 3}
   statBoostLevelChunk: {fileID: 883075218157830927, guid: 41aef91e755ed134d9811eb10dc73c44, type: 3}
   startLevelChunk: {fileID: 6942650617176430873, guid: c83eaacdc21040b47b4802335d4ab987, type: 3}
   winLevelChunk: {fileID: 8152933940307607233, guid: 6dad02eb0bbd1d043be0771c12a239ae, type: 3}
-  statBoostCooldownInMeters: 75
-  totalMetersToWin: 3000
-  onPause:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1038468807}
-        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
-        m_MethodName: PauseMovement
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 750887508}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+  distanceToSpawnWin: 300
+  distanceToSpawnStatBoost: 10
+  distanceToIncreaseSpeed: 10
   onGameOver:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1038468807}
-        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
-        m_MethodName: PauseMovement
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 2101297119}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
@@ -1124,18 +1092,6 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 660408204}
-        m_TargetAssemblyTypeName: FMODController, Assembly-CSharp
-        m_MethodName: ChangeMusicState
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
@@ -1152,48 +1108,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-  onContinue:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1038468807}
-        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
-        m_MethodName: ContinueMovement
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 750887508}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   onGameComplete:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1038468807}
-        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
-        m_MethodName: PauseMovement
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 2101297119}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
@@ -1202,18 +1119,6 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 660408204}
-        m_TargetAssemblyTypeName: FMODController, Assembly-CSharp
-        m_MethodName: ChangeMusicState
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
@@ -1230,11 +1135,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-  distanceTravelledText: {fileID: 80854836}
-  deleteChunkHeight: -100
-  aheadScrollSpeed: -5
-  behindScrollSpeed: -1
-  initialScrollSpeed: 1
+  distanceTravelledText: {fileID: 0}
+  deleteChunkHeight: -20
+  initialScrollSpeed: 0.8
+  topScreenScrollMultiplier: 10
+  bottomScreenScrollMultiplier: 0.75
+  standardSpeedIncrease: 0.01
   objectsToMoveWithLevel:
   - {fileID: 537851217543873455}
   - {fileID: 250277841}
@@ -1248,6 +1154,105 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 12, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &849643213
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 849643215}
+  - component: {fileID: 849643214}
+  m_Layer: 0
+  m_Name: PauseManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &849643214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 849643213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 071f0bb0881e9f042bc5d0d58b510ca8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseAction: {fileID: -944628639613478452, guid: adb1e1c1d96f7f84ca116b6d0ae7aa96, type: 3}
+  onPause:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 750887508}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 660408204}
+        m_TargetAssemblyTypeName: FMODController, Assembly-CSharp
+        m_MethodName: PlayPauseSnaphot
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  onContinue:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 750887508}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 660408204}
+        m_TargetAssemblyTypeName: FMODController, Assembly-CSharp
+        m_MethodName: StopPauseSnapshot
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!4 &849643215
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 849643213}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1438,17 +1443,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff5d3d0462eae9441804754c9035441d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1038468807 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4455917185752785059, guid: 8093dc56670215b4fa77f20aa81e8750, type: 3}
-  m_PrefabInstance: {fileID: 537851217543873454}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a42729773ca5bfa4b9ca88d491ab4589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1079917246
@@ -2401,7 +2395,7 @@ GameObject:
   - component: {fileID: 2013215216}
   - component: {fileID: 2013215215}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Button (Quit)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2470,18 +2464,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 660408204}
-        m_TargetAssemblyTypeName: FMODController, Assembly-CSharp
-        m_MethodName: ChangeMusicState
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1174794315}
         m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
         m_MethodName: LoadSceneByInt
@@ -2490,6 +2472,30 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7361882584384284671, guid: 7266d2beafbcab74eac463c32b3f08f9, type: 3}
+        m_TargetAssemblyTypeName: FMODController, Assembly-CSharp
+        m_MethodName: PlaySFXNoParams
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: event:/SFX/UI/Click
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1174794315}
+        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
+        m_MethodName: SetGameState
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2640,14 +2646,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 885566847}
-    - target: {fileID: 1178089900437854520, guid: 8093dc56670215b4fa77f20aa81e8750, type: 3}
-      propertyPath: m_Color.a
-      value: 0.6156863
-      objectReference: {fileID: 0}
-    - target: {fileID: 1598683677634082134, guid: 8093dc56670215b4fa77f20aa81e8750, type: 3}
-      propertyPath: buildSFX
-      value: event:/SFX/Player/Player_Build
-      objectReference: {fileID: 0}
     - target: {fileID: 2790937520228887081, guid: 8093dc56670215b4fa77f20aa81e8750, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.5
@@ -2705,16 +2703,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1752890021}
     - target: {fileID: 3410731571219422454, guid: 8093dc56670215b4fa77f20aa81e8750, type: 3}
-      propertyPath: jumpForceMultiplierMax
-      value: 2
+      propertyPath: speedMultiplerEffector
+      value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 4455917185752785059, guid: 8093dc56670215b4fa77f20aa81e8750, type: 3}
-      propertyPath: climbingSFX
-      value: event:/SFX/Player/Player_ClimbLadder
+    - target: {fileID: 3410731571219422454, guid: 8093dc56670215b4fa77f20aa81e8750, type: 3}
+      propertyPath: jumpForceMultiplierEffector
+      value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 8823472200452635409, guid: 8093dc56670215b4fa77f20aa81e8750, type: 3}
-      propertyPath: m_Color.a
-      value: 0.6156863
+    - target: {fileID: 3410731571219422454, guid: 8093dc56670215b4fa77f20aa81e8750, type: 3}
+      propertyPath: buildSpeedMultiplierEffector
+      value: 1.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2801,3 +2799,4 @@ SceneRoots:
   - {fileID: 690164305}
   - {fileID: 250277841}
   - {fileID: 537851217543873454}
+  - {fileID: 849643215}

@@ -10,8 +10,14 @@ public enum PlayerStatMultiplier
 }
 public enum GameState
 {
+    MENU,
     PLAYING,
     PAUSED,
     GAME_OVER,
-    GAME_COMPLETE
+    GAME_COMPLETE,
+}
+[System.Serializable]
+public struct MinStatRequirements
+{
+    public int speed, jump, build;
 }

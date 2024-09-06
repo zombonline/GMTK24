@@ -9,15 +9,12 @@ public class StatBoost : MonoBehaviour
     [SerializeField] string pickupSFX;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (!collision.CompareTag("Player")) { return; }
+        FindObjectOfType<PlayerStats>().IncreaseLevel(statToUpgrade);
+        FMODController.PlaySFX(pickupSFX);
+        foreach (StatBoost statBoost in FindObjectsOfType<StatBoost>())
         {
-            FindObjectOfType<PlayerStats>().IncreaseMultiplier(statToUpgrade, amount);
-            StatBoost[] statBoosts = FindObjectsOfType<StatBoost>();
-            //FMODController.PlaySFX(pickupSFX);
-            foreach (StatBoost statBoost in statBoosts)
-            {
-                Destroy(statBoost.gameObject);
-            }
+           Destroy(statBoost.gameObject);
         }
     }
 }

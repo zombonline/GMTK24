@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -979,21 +979,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1751369719}
-        m_TargetAssemblyTypeName: FMODMethods, Assembly-CSharp
-        m_MethodName: ChangeMusicState
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1751369719}
-        m_TargetAssemblyTypeName: FMODMethods, Assembly-CSharp
-        m_MethodName: PlaySFX
+      - m_Target: {fileID: 7361882584384284671, guid: 7266d2beafbcab74eac463c32b3f08f9, type: 3}
+        m_TargetAssemblyTypeName: FMODController, Assembly-CSharp
+        m_MethodName: PlaySFXNoParams
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1001,6 +989,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: event:/SFX/UI/Click
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 392668502}
+        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
+        m_MethodName: SetGameState
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 392668502}
@@ -1593,7 +1593,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1751369719}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: FMODMethods, Assembly-CSharp
         m_MethodName: UpdateSFXVolume
         m_Mode: 0
@@ -1771,7 +1771,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1751369719}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: FMODMethods, Assembly-CSharp
         m_MethodName: UpdateMusicVolume
         m_Mode: 0
@@ -1899,50 +1899,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8780716b56dc84643881336dae2fc185, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1751369718
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1751369720}
-  - component: {fileID: 1751369719}
-  m_Layer: 0
-  m_Name: FMOD METHODS
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1751369719
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1751369718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e07eb3fae091a58468afe8904c934e1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1751369720
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1751369718}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1793079992
 GameObject:
   m_ObjectHideFlags: 0
@@ -2121,5 +2077,4 @@ SceneRoots:
   - {fileID: 1089022210}
   - {fileID: 392668501}
   - {fileID: 88041236046095530}
-  - {fileID: 1751369720}
   - {fileID: 491414502}

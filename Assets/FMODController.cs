@@ -15,6 +15,14 @@ public class FMODController : MonoBehaviour
 
     private const string MUSIC_VOL_KEY = "music vol", SFX_VOL_KEY = "sfx vol";
 
+    private void OnEnable()
+    {
+        GameManager.onGameStateUpdated += HandleGameStateChange;
+    }
+    private void OnDisable()
+    {
+        GameManager.onGameStateUpdated -= HandleGameStateChange;
+    }
     private IEnumerator Start()
     {
         FMODUnity.RuntimeManager.LoadBank("Master");
@@ -44,32 +52,39 @@ public class FMODController : MonoBehaviour
     }
     public void StopPauseSnapshot()
     {
+        if(!pauseSnapshot.isValid()) { return; }
         pauseSnapshot.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
     }
     public void ChangeDangerParameter(float value)
     {
         instance.SetParameter("Danger", value, false);
     }
-    public static void PlaySFX(string val, string param = null, int paramVal = 0)
+    public static FMOD.Studio.EventInstance PlaySFX(string val, string param = null, int paramVal = 0)
     {
         var newAudioEvent = RuntimeManager.CreateInstance(val);
         newAudioEvent.start();
-        if (param == null) { return; }
-        newAudioEvent.setParameterByName(param, paramVal);
+        if (param != null)
+        {
+            newAudioEvent.setParameterByName(param, paramVal);
+        }
+        return newAudioEvent;
+    }
+    public static void StopSFX(FMOD.Studio.EventInstance val)
+    {
+        if(!val.isValid()) { return; }
+        val.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
     }
     public static void PlaySFXNoParams(string val)
     {
         var newAudioEvent = RuntimeManager.CreateInstance(val);
         newAudioEvent.start();
     }
-
     public static void StartLoopedSFX(string val)
     {
         var audioEvent = RuntimeManager.CreateInstance(val);
         audioEvent.start();
         loopingInstances.Add(audioEvent);
     }
-
     public static void StopLoopedSFX(string val)
     {
         Debug.Log("Stopping looped SFX");
@@ -86,7 +101,6 @@ public class FMODController : MonoBehaviour
             }
         }
     }
-
     public static void SetMusicVolume(float val)
     {
         music.setVolume(val);
@@ -97,5 +111,35 @@ public class FMODController : MonoBehaviour
         sfx.setVolume(val);
         PlayerPrefs.SetFloat(SFX_VOL_KEY, val);
     }
-
+    public static bool GetIsPlaying(FMOD.Studio.EventInstance instance)
+    {
+        FMOD.Studio.PLAYBACK_STATE state;
+        instance.getPlaybackState(out state);
+        return state != FMOD.Studio.PLAYBACK_STATE.STOPPED;
+    }
+    private void HandleGameStateChange(GameState newState)
+    {
+        if (instance == null) { return; }
+        switch (newState)
+        {
+            case GameState.MENU:
+                ChangeMusicState(0);
+                break;
+            case GameState.PLAYING:
+                ChangeDangerParameter(0);
+                ChangeMusicState(1);
+                StopPauseSnapshot();
+                break;
+            case GameState.PAUSED:
+                ChangeMusicState(1);
+                PlayPauseSnaphot();
+                break;
+            case GameState.GAME_OVER:
+                ChangeMusicState(2);
+                break;
+            case GameState.GAME_COMPLETE:
+                ChangeMusicState(3);
+                break;
+        }
+    }
 }

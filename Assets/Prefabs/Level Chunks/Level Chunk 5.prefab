@@ -108,6 +108,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3178b0793ac57141b0bd0fba5cfa495, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minStatRequirements:
+    speed: 0
+    jump: 0
+    build: 0
 --- !u!212 &8866712412978130120
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -188,6 +192,10 @@ PrefabInstance:
       propertyPath: m_SpriteTilingProperty.border.z
       value: 0.124600634
       objectReference: {fileID: 0}
+    - target: {fileID: 4022730768075919853, guid: ea37fdb902af60949866bb4033946eb4, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.99680513
+      objectReference: {fileID: 0}
     - target: {fileID: 4605961632183167613, guid: ea37fdb902af60949866bb4033946eb4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -231,7 +239,7 @@ PrefabInstance:
     - target: {fileID: 7416243794881593846, guid: ea37fdb902af60949866bb4033946eb4, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 5f60bf58dd1c7cd4abdba56badcac771, type: 3}
+      objectReference: {fileID: 21300000, guid: 1d8160bc2f73c574d9e278289a7626e8, type: 3}
     - target: {fileID: 7614885905218513665, guid: ea37fdb902af60949866bb4033946eb4, type: 3}
       propertyPath: m_Name
       value: Block Bricks (Buildable) Variant
@@ -1230,9 +1238,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6592056048379791064}
     m_Modifications:
+    - target: {fileID: 1217798656353373215, guid: ccb9442046fc5984c9c691ef6365d48b, type: 3}
+      propertyPath: m_Size.y
+      value: 6.75
+      objectReference: {fileID: 0}
     - target: {fileID: 3949698076342164132, guid: ccb9442046fc5984c9c691ef6365d48b, type: 3}
       propertyPath: m_Size.x
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3949698076342164132, guid: ccb9442046fc5984c9c691ef6365d48b, type: 3}
+      propertyPath: m_Size.y
+      value: 6.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 3949698076342164132, guid: ccb9442046fc5984c9c691ef6365d48b, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 6.75
       objectReference: {fileID: 0}
     - target: {fileID: 4606869577100981794, guid: ccb9442046fc5984c9c691ef6365d48b, type: 3}
       propertyPath: m_Name
@@ -1244,7 +1264,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7860621522583291489, guid: ccb9442046fc5984c9c691ef6365d48b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6
+      value: 5.625
       objectReference: {fileID: 0}
     - target: {fileID: 7860621522583291489, guid: ccb9442046fc5984c9c691ef6365d48b, type: 3}
       propertyPath: m_LocalPosition.z

@@ -14,7 +14,9 @@ public static class PositionOnScreen
     }
     public static float GetScaleBetweenTwoPoints(Vector2 objectToCheck, float pointToCheck0, float pointToCheck1)
     {
-        return Mathf.Clamp(Camera.main.WorldToScreenPoint(objectToCheck).y, pointToCheck0, pointToCheck1);
+        //return 0 if objectToCheck is at pointToCheck0, 1 if objectToCheck is at pointToCheck1
+        float val = (Camera.main.WorldToScreenPoint(objectToCheck).y - pointToCheck0) / (pointToCheck1 - pointToCheck0);
+        return Mathf.Clamp(val, 0, 1);
     }
     public static float GetCameraHeightInWorld()
     {

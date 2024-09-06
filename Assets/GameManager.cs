@@ -18,7 +18,6 @@ public static class GameManager
         }
         gameState = newState;
     }
-    
     public static GameState GetGameState()
     {
         return gameState;

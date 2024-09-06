@@ -5,40 +5,51 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    [SerializeField] private float speedMultiplier = 2, jumpForceMultiplier = 2, buildSpeedMultiplier = 2;
-    [SerializeField] private float speedMultiplierMax, jumpForceMultiplierMax, buildSpeedMultiplierMax;
+    private int speedLevel = 0, jumpLevel = 0, buildLevel = 0;
+    private float speedMultiplier = 1, jumpForceMultiplier = 1, buildSpeedMultiplier = 1;
+    [SerializeField] private int speedLevelMax, jumpLevelMax, buildLevelMax;
+    [SerializeField] private float speedMultiplerEffector, jumpForceMultiplierEffector, buildSpeedMultiplierEffector;
     [SerializeField] TextMeshProUGUI statsTextJump, statsTextBuild, statsTextSpeed;
-    public void IncreaseMultiplier(PlayerStatMultiplier playerStatMultiplier, float amount)
+
+    public delegate void OnLevelIncreased();
+
+    public static event OnLevelIncreased onLevelIncreased;
+    public void IncreaseLevel(PlayerStatMultiplier playerStatMultiplier)
     {
         switch (playerStatMultiplier)
         {
             case PlayerStatMultiplier.SPEED:
-                speedMultiplier += amount;
-                if (speedMultiplier > speedMultiplierMax)
+                speedLevel++;
+                if (speedLevel > speedLevelMax)
                 {
-                    speedMultiplier = speedMultiplierMax;
+                    speedLevel = speedLevelMax;
                 }
+                speedMultiplier = 1f + (((float)speedLevel / speedLevelMax) * speedMultiplerEffector);
                 break;
             case PlayerStatMultiplier.JUMP:
-                jumpForceMultiplier += amount;
-                if (jumpForceMultiplier > jumpForceMultiplierMax)
+                jumpLevel++;
+                if (jumpLevel > jumpLevelMax)
                 {
-                    jumpForceMultiplier = jumpForceMultiplierMax;
+                    jumpLevel = jumpLevelMax;
                 }
+                print("Jump force multiplier: " + jumpForceMultiplier);
+                jumpForceMultiplier = 1f + (((float)jumpLevel / jumpLevelMax) * jumpForceMultiplierEffector);
+                print("Jump force multiplier: " + jumpForceMultiplier);
                 break;
             case PlayerStatMultiplier.BUILD:
-                buildSpeedMultiplier += amount;
-                if (buildSpeedMultiplier > buildSpeedMultiplierMax)
+                buildLevel++;
+                if (buildLevel > buildLevelMax)
                 {
-                    buildSpeedMultiplier = buildSpeedMultiplierMax;
+                    buildLevel = buildLevelMax;
                 }
+                buildSpeedMultiplier = 1f + (((float)buildLevel / buildLevelMax) * buildSpeedMultiplierEffector);
                 break;
         }
+        onLevelIncreased.Invoke();
         if(statsTextJump == null) { return; }
-        //statsText.text = "SPEED - " + speedMultiplier + "\nJUMP - " + jumpForceMultiplier + "\nBUILD - " + buildSpeedMultiplier;
-        statsTextBuild.text = buildSpeedMultiplier.ToString("0.0").Split('.')[1];
-        statsTextJump.text = jumpForceMultiplier.ToString("0.0").Split('.')[1];
-        statsTextSpeed.text = speedMultiplier.ToString("0.0").Split('.')[1];
+        statsTextSpeed.text = speedLevel.ToString();
+        statsTextJump.text = jumpLevel.ToString();
+        statsTextBuild.text = buildLevel.ToString();
     } 
     public float GetMultiplier(PlayerStatMultiplier playerStatMultiplier)
     {
@@ -52,6 +63,21 @@ public class PlayerStats : MonoBehaviour
                 return buildSpeedMultiplier;
             default:
                 return 1;
+        }
+    }
+
+    public int GetLevel(PlayerStatMultiplier playerStatMultiplier)
+    {
+        switch (playerStatMultiplier)
+        {
+            case PlayerStatMultiplier.SPEED:
+                return speedLevel;
+            case PlayerStatMultiplier.JUMP:
+                return jumpLevel;
+            case PlayerStatMultiplier.BUILD:
+                return buildLevel;
+            default:
+                return 0;
         }
     }
 

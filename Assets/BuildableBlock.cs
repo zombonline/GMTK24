@@ -21,7 +21,6 @@ public class BuildableBlock : MonoBehaviour
 
     private void Update()
     {
-        if (LevelManager.GetIsPaused()) { return; }
         if (!Application.isPlaying)
         {
             if (isBuilt)

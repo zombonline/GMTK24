@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 335502589738316082}
   - component: {fileID: 285784067852026328}
   - component: {fileID: 5574066262791744963}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Element Jump Pad
   m_TagString: Ladder
   m_Icon: {fileID: 0}

@@ -5,13 +5,21 @@ using UnityEngine;
 public class PlayerAnimation : MonoBehaviour
 {
     private Animator animator;
-
     private bool isMoving, isJumping, isFalling, isBuilding, isClimbing;
     Rigidbody2D rb;
     Build build;
     PlayerMovement playerMovement;
     [SerializeField] SpriteRenderer spriteRenderer;
+    private bool animating = true;
 
+    private void OnEnable()
+    {
+        GameManager.onGameStateUpdated += HandleGameState;
+    }
+    private void OnDisable()
+    {
+        GameManager.onGameStateUpdated -= HandleGameState;
+    }
     void Awake()
     {
         animator = GetComponent<Animator>();
@@ -19,10 +27,9 @@ public class PlayerAnimation : MonoBehaviour
         build = GetComponentInChildren<Build>();
         playerMovement = GetComponent<PlayerMovement>();
     }
-
     void Update()
     {
-        if (LevelManager.GetIsPaused()) { animator.speed = 0; return; }
+        if(!animating) { return; }
         animator.speed = 1;
         isMoving = rb.velocity.x != 0;    
         isJumping = rb.velocity.y > 0;
@@ -61,6 +68,19 @@ public class PlayerAnimation : MonoBehaviour
         else
         {
             animator.CrossFade("Idle", 0f);
+        }
+    }
+    private void HandleGameState(GameState state)
+    {
+        switch (state)
+        {
+            case GameState.PLAYING:
+                animating = true;
+                break;
+            default:
+                animator.speed = 0;
+                animating = false;
+                break;
         }
     }
 }

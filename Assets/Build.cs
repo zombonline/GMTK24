@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class Build : MonoBehaviour
@@ -22,8 +23,28 @@ public class Build : MonoBehaviour
 
     [SerializeField] private float yBlockSearchOffset = 0;
     [SerializeField] string buildSFX;
+
+    private bool canBuild = true;
+
+    PlayerInput playerInput;
+
+    FMOD.Studio.EventInstance buildSFXInstance;
+
+    private void OnEnable()
+    {
+        GameManager.onGameStateUpdated += HandleGameState;
+        playerInput.actions.FindAction("Interact").started += BuildPressed;
+        playerInput.actions.FindAction("Interact").canceled += BuildReleased;
+    }
+    private void OnDisable()
+    {
+        GameManager.onGameStateUpdated -= HandleGameState;
+        playerInput.actions.FindAction("Interact").started -= BuildPressed;
+        playerInput.actions.FindAction("Interact").canceled -= BuildReleased;
+    }
     private void Awake()
     {
+        playerInput = GetComponentInParent<PlayerInput>();
         playerStats = GetComponentInParent<PlayerStats>();
     }
 
@@ -34,36 +55,18 @@ public class Build : MonoBehaviour
 
     public void Update()
     {
-        if(LevelManager.GetIsPaused()) { return; }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            if(targetBuildableBlock == null) { return; }
-            onBuildBegin.Invoke();
-            buildTimer = buildSpeed / playerStats.GetMultiplier(PlayerStatMultiplier.BUILD);
-            isBuilding = true;
-            FMODController.PlaySFX(buildSFX);
-        }
-        
-        if (Input.GetKey(KeyCode.E))
-        {
-            Debug.Log(targetBuildableBlock);
+        if(!canBuild) { return; }
 
+        if (isBuilding)
+        {
             if (targetBuildableBlock == null) { return ; }
             buildTimer -= Time.deltaTime;
-            Debug.Log(buildTimer);
             if (buildTimer < 0 && isBuilding)
             {
                 isBuilding = false;
                 targetBuildableBlock.Interact();
                 onBuildEnd.Invoke();
             }
-        }
-        if (Input.GetKeyUp(KeyCode.E))
-        {
-
-            isBuilding = false;
-            buildTimer = buildSpeed;
-            onBuildEnd.Invoke();
         }
         progressBar.fillAmount = buildTimer/(buildSpeed/playerStats.GetMultiplier(PlayerStatMultiplier.BUILD));
 
@@ -109,7 +112,21 @@ public class Build : MonoBehaviour
             }
             SetTargetBuildableBlock(buildableBlocksInRange[newTargetIndex]);
         }
-
+    }
+    private void BuildPressed(InputAction.CallbackContext context)
+    {
+        if (targetBuildableBlock == null) { return; }
+        onBuildBegin.Invoke();
+        buildTimer = buildSpeed / playerStats.GetMultiplier(PlayerStatMultiplier.BUILD);
+        isBuilding = true;
+        buildSFXInstance = FMODController.PlaySFX(buildSFX);
+    }
+    private void BuildReleased(InputAction.CallbackContext context)
+    {
+        isBuilding = false;
+        buildTimer = buildSpeed;
+        onBuildEnd.Invoke();
+        FMODController.StopSFX(buildSFXInstance);
     }
 
     private void SetTargetBuildableBlock(BuildableBlock newTarget)
@@ -173,5 +190,17 @@ public class Build : MonoBehaviour
     public bool GetIsBuilding()
     {
         return isBuilding;
-    }   
+    }
+    private void HandleGameState(GameState state)
+    {
+        switch (state)
+        {
+            case GameState.PLAYING:
+                canBuild = true;
+                break;
+            default:
+                canBuild = false;
+                break;
+        }
+    }
 }

@@ -32,4 +32,8 @@ public class SceneLoader : MonoBehaviour
     {
         Application.Quit();
     }
+    public static void SetGameState(int val)
+    {
+        GameManager.SetGameState((GameState)val);
+    }
 }
